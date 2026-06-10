@@ -3,14 +3,21 @@ let personajes = [];
 const contenedorPersonajes = document.getElementById("contenedorPersonajes");
 const mensaje = document.getElementById("mensaje");
 
+const formBuscador = document.getElementById("formBuscador");
+const buscador = document.getElementById("buscador");
+
 async function obtenerPersonajes() {
   try {
     const respuesta = await fetch("https://thesimpsonsapi.com/api/characters");
 
+    if (!respuesta.ok) {
+      throw new Error("Error en la API");
+    }
+
     const datos = await respuesta.json();
 
-    personajes = datos;
-    console.log(personajes);
+    personajes = datos.results;
+
     renderizarPersonajes(personajes);
   } catch (error) {
     console.error(error);
@@ -36,8 +43,8 @@ function renderizarPersonajes(personajes) {
 
                     <div class="card-body">
 
-                        <h5 class="card-tittle">${personaje.name}</h5>
-                        <p class="card-text">${personaje.ocupation}</p>
+                        <h5 class="card-title">${personaje.name}</h5>
+                        <p class="card-text">${personaje.occupation}</p>
                         <p class="card-text">${personaje.status}</p>
 
                         <button 
@@ -52,4 +59,30 @@ function renderizarPersonajes(personajes) {
             </div>
         `;
   });
+}
+
+formBuscador.addEventListener("submit", filtrarPersonajes);
+
+function filtrarPersonajes(event) {
+  event.preventDefault();
+
+  const textoBusqueda = buscador.value.trim();
+
+  if (textoBusqueda === "") {
+    mensaje.textContent = "Ingrese un nombre para buscar";
+    renderizarPersonajes(personajes);
+    return;
+  }
+
+  const resultados = personajes.filter((personaje) =>
+    personaje.name.toLowerCase().includes(textoBusqueda.toLowerCase()),
+  );
+
+  if (resultados.length === 0) {
+    mensaje.textContent = "No se encontraron personajes";
+    contenedorPersonajes.innerHTML = "";
+  } else {
+    mensaje.textContent = "";
+    renderizarPersonajes(resultados);
+  }
 }
