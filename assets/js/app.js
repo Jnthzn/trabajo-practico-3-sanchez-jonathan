@@ -86,3 +86,31 @@ function filtrarPersonajes(event) {
     renderizarPersonajes(resultados);
   }
 }
+
+contenedorPersonajes.addEventListener("click", (event) => {
+  const boton = event.target;
+
+  if (boton.hasAttribute("data-id")) {
+    const id = boton.dataset.id;
+
+    obtenerDetallePersonaje(id);
+  }
+});
+
+async function obtenerDetallePersonaje(id) {
+  try {
+    const respuesta = await fetch(
+      `https://thesimpsonsapi.com/api/characters/${id}`,
+    );
+
+    if (!respuesta.ok) {
+      throw new Error("Error en la API");
+    }
+
+    const datos = await respuesta.json();
+
+    console.log(datos);
+  } catch (error) {
+    console.error(error);
+  }
+}
