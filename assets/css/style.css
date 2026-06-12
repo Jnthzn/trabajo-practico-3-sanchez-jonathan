@@ -11,3 +11,114 @@ body {
 main {
   flex: 1;
 }
+
+header {
+  background: linear-gradient(90deg, #ffd90f, #f9c300);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #000;
+  margin: 0;
+}
+
+h1 {
+  font-weight: bold;
+}
+
+#buscador {
+  width: 75%;
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+}
+
+.card {
+  width: 100%;
+  transition: transform 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card-img-top {
+  height: 300px;
+  object-fit: contain;
+  padding: 1rem;
+  background-color: #fff;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body button {
+  margin-top: auto;
+}
+
+#mensaje {
+  font-weight: bold;
+  color: #dc3545;
+}
+
+.modal-body img {
+  max-height: 300px;
+}
+
+.blockquote {
+  background-color: #f8f9fa;
+  border-left: 4px solid #ffc107;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+}
+
+footer {
+  margin-top: auto;
+}
+
+#formBuscador {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+#formBuscador .col-md-6,
+#formBuscador .col-lg-6 {
+  display: flex;
+  gap: 10px;
+}
+
+#buscador {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid #ffd90f;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+#buscador:focus {
+  border-color: #f9c300;
+  box-shadow: 0 0 8px rgba(255, 217, 15, 0.5);
+}
+
+#formBuscador button {
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+}
+
+.logo-simpsons {
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-simpsons:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
