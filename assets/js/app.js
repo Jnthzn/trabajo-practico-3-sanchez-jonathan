@@ -63,6 +63,10 @@ function renderizarPersonajes(personajes) {
   });
 }
 
+function limpiarResultados() {
+  contenedorPersonajes.innerHTML = "";
+}
+
 formBuscador.addEventListener("submit", filtrarPersonajes);
 
 function filtrarPersonajes(event) {
@@ -82,7 +86,7 @@ function filtrarPersonajes(event) {
 
   if (resultados.length === 0) {
     mensaje.textContent = "No se encontraron personajes";
-    contenedorPersonajes.innerHTML = "";
+    limpiarResultados();
   } else {
     mensaje.textContent = "";
     renderizarPersonajes(resultados);
@@ -99,19 +103,8 @@ contenedorPersonajes.addEventListener("click", (event) => {
   }
 });
 
-async function obtenerDetallePersonaje(id) {
-  try {
-    const respuesta = await fetch(
-      `https://thesimpsonsapi.com/api/characters/${id}`,
-    );
-
-    if (!respuesta.ok) {
-      throw new Error("Error en la API");
-    }
-
-    const datos = await respuesta.json();
-
-    contenidoModal.innerHTML = `
+function mostrarModal(datos) {
+  contenidoModal.innerHTML = `
   <div class="row">
     
     <div class="col-4 text-center">
@@ -150,12 +143,26 @@ async function obtenerDetallePersonaje(id) {
     </div>
 
   </div>
-
   `;
 
-    const modal = new bootstrap.Modal(document.getElementById("modalDetalle"));
+  const modal = new bootstrap.Modal(document.getElementById("modalDetalle"));
 
-    modal.show();
+  modal.show();
+}
+
+async function obtenerDetallePersonaje(id) {
+  try {
+    const respuesta = await fetch(
+      `https://thesimpsonsapi.com/api/characters/${id}`,
+    );
+
+    if (!respuesta.ok) {
+      throw new Error("Error en la API");
+    }
+
+    const datos = await respuesta.json();
+
+    mostrarModal(datos);
   } catch (error) {
     console.error(error);
   }
